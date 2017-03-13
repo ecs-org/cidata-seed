@@ -36,13 +36,15 @@ if test "$cmd" = "--all-vagrant"; then
   $0 --vagrant-password --grow-root vagrant-password-growroot.iso
   exit 0
 fi
-  
+
 if test "$cmd" = "--vagrant" -o "$cmd" = "--vagrant-password"; then
     if test "$cmd" = "--vagrant-password"; then
-        vagrant_password_data='
-    chpasswd: { expire: False }
-    ssh_pwauth: True  
-    password: $6$VAX3VZ0i$ZCvAQtdYS3WsxWMR3SZC2QtteLdyg7EiZgV/E8QdWB361.lsPZ5pyh6gMob2UqtWRj7B1Pc6qzy4xypDxMQZ8/
+        vagrant_password_data='    lock-passwd: False
+    passwd: $6$VAX3VZ0i$ZCvAQtdYS3WsxWMR3SZC2QtteLdyg7EiZgV/E8QdWB361.lsPZ5pyh6gMob2UqtWRj7B1Pc6qzy4xypDxMQZ8/
+
+chpasswd:
+  expire: False
+ssh_pwauth: True
 '
     else
         vagrant_password_data=''
@@ -53,6 +55,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     ssh_authorized_keys:
       - $vagrant_publickey
+
 $vagrant_password_data
 "
 elif test "$cmd" = "--key"; then
