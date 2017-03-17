@@ -17,17 +17,21 @@ Example:
     + user can login as root with the matching ssh secret key.
 
 + Custom Static IP Config with vagrant user and password:
-    + **Warning**: This is a very unusual configuration, you should only set static ip's when there is absolutly no other way to configure a working internet connection for a virtual machine.
+    + **Warning**: This is a very unusual configuration, you should only set static ip's when there is no other way to configure a working internet connection for a virtual machine.
     + file: staticip-metadata:
 
 ```
 network-interfaces: |
-  iface eth0 inet static
-  address 192.168.1.10
-  network 192.168.1.0
-  netmask 255.255.255.0
-  broadcast 192.168.1.255
-  gateway 192.168.1.254
+  auto lo
+  iface lo inet loopback
+  #
+  auto ens5
+  iface ens5 inet static
+    address 10.1.30.20
+    network 10.1.30.0
+    netmask 255.255.255.0
+    broadcast 10.1.30.255
+    gateway 10.1.30.254
 ```
 
     + file: staticip-userdata:
@@ -38,4 +42,4 @@ resolv_conf:
   domain: example.org
 ```
 
-    + `./create-seed-iso.sh --vagrant-password --add-meta-data staticip-metadata --add-user-data staticip-userdata --grow-root staticip-seed.iso`
+    + `./create-seed-iso.sh --vagrant-password --add-meta-data staticip-metadata --add-user-data staticip-userdata staticip-seed.iso`
