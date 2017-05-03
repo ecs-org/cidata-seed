@@ -18,7 +18,8 @@ Example:
 
 + Custom Static IP Config with vagrant user and password:
     + **Warning**: This is a very unusual configuration, you should only set static ip's when there is no other way to configure a working internet connection for a virtual machine.
-    + file: staticip-metadata:
+
+file: staticip-metadata:
 
 ```
 network-interfaces: |
@@ -34,7 +35,8 @@ network-interfaces: |
     gateway 10.1.30.254
 ```
 
-    + file: staticip-userdata:
+file: staticip-userdata:
+
 ```
 manage-resolv-conf: true
 resolv_conf:
@@ -42,4 +44,4 @@ resolv_conf:
   domain: example.org
 ```
 
-    + `./create-seed-iso.sh --vagrant-password --add-meta-data staticip-metadata --add-user-data staticip-userdata staticip-seed.iso`
+Execute: `./create-seed-iso.sh --vagrant-password --add-meta-data staticip-metadata --add-user-data staticip-userdata staticip-seed.iso`
