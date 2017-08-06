@@ -129,7 +129,7 @@ END
 # Create fake meta-data
 cat > $tempdir/meta-data <<END
 instance-id: iid-$(openssl rand -hex 8)
-local-hostname: ubuntu-xenial
+local-hostname: nocloud
 $metaoptional
 
 END

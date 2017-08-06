@@ -10,14 +10,18 @@ Purpose: to configure a cloud-init compatible virtual machine on a "no-cloud" se
 + Use your ssh publickey to create a cidata iso that configures the root user with your key.
     + Requisites for creating new iso files: bash, mkisoimage, openssl
 
-Example:
+## Examples
 
-+ Create a seed iso with your id_rsa public key installed as root user:
++ Create a seed iso with vagrant user and password:
+    + `./create-seed-iso.sh --vagrant-password vagrant-seed.iso`
+    + user can login as vagrant with password vagrant or the vagrant secret key
+
++ Create a seed iso with your id_rsa public key installed as root user and grow the root file system to the maximum available space at startup:
     + `./create-seed-iso.sh --key ~/.ssh/id_rsa.pub --growroot mykey-seed.iso`
     + user can login as root with the matching ssh secret key.
 
-+ Custom Static IP Config with vagrant user and password:
-    + **Warning**: This is a very unusual configuration, you should only set static ip's when there is no other way to configure a working internet connection for a virtual machine.
++ Custom Static IP Config (with vagrant user and password):
+    + **Warning**: Static IP configurations are usually bad and break easy. (eg. change of virtual ethernet adapter will change interface name).
 
 file: staticip-metadata:
 
@@ -32,7 +36,7 @@ network-interfaces: |
     network 10.1.30.0
     netmask 255.255.255.0
     broadcast 10.1.30.255
-    gateway 10.1.30.254
+    gateway 10.1.30.1
 ```
 
 file: staticip-userdata:
